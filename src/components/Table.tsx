@@ -52,7 +52,7 @@ const Table: React.FC<IProps> = ({
   };
 
   return (
-    <>
+    <div className="table-container">
       <DataTable
         value={data}
         dataKey={dataKey}
@@ -73,7 +73,7 @@ const Table: React.FC<IProps> = ({
           />
         </div>
       ) : null}
-    </>
+    </div>
   );
 };
 
