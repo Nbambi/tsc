@@ -16,6 +16,13 @@ export default function OrderPage() {
   const [delVisible, setDelVisible] = useState<boolean>(false);
   const delId = useRef<string>("");
 
+  const empty = (
+    <>
+      <p>No Order Right Now</p>
+      <p>Please Create New Order or Switch Account Nickname</p>
+    </>
+  );
+
   const formatOrderStatus = (rowData: any) => {
     let severity: any = "";
     switch (rowData?.orderStatus) {
@@ -75,7 +82,7 @@ export default function OrderPage() {
           />
         </div>
 
-        <Table>
+        <Table emptyCustom={empty}>
           <Column field="orderId" header="Order ID" sortable></Column>
           <Column header="Order Status" body={formatOrderStatus}></Column>
           <Column field="orderQuantity" header="Order Quantity"></Column>

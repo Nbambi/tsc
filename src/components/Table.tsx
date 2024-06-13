@@ -1,22 +1,17 @@
 import React, { useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Paginator } from "primereact/paginator";
+import "./Table.scss";
 
 interface IProps {
   sizeOptions?: number[];
   dataList?: any;
-  //   dataKey?: string,
-  //   onRowSelect: any,
-  //   onRowUnselect: any,
+  emptyCustom?: string | React.ReactNode;
   [T: string | number]: any;
 }
 
 const Table: React.FC<IProps> = ({
   sizeOptions = [3, 10, 20, 50, 100],
-  dataList,
-  dataKey,
-  onRowSelect,
-  onRowUnselect,
   children,
   ...props
 }) => {
@@ -25,6 +20,7 @@ const Table: React.FC<IProps> = ({
   const [pageSize, setPageSize] = useState(sizeOptions[0]);
   const [totalNum, setTotalNum] = useState(10);
 
+  // const [data, setData] = useState([]);
   const [data, setData] = useState([
     { orderId: "001", orderStatus: "new" },
     { orderId: "002", orderStatus: "new" },
@@ -55,14 +51,24 @@ const Table: React.FC<IProps> = ({
     <div className="table-container">
       <DataTable
         value={data}
-        dataKey={dataKey}
-        onRowSelect={onRowSelect}
-        onRowUnselect={onRowUnselect}
+        dataKey={props.dataKey}
+        onRowSelect={props.onRowSelect}
+        onRowUnselect={props.onRowUnselect}
         selectionMode="single"
+        emptyMessage={() => (
+          <div className="table-empty-box">
+            <i className="pi pi-exclamation-circle"></i>
+            {props.emptyCustom ? (
+              props.emptyCustom
+            ) : (
+              <p>No available options</p>
+            )}
+          </div>
+        )}
       >
         {children}
       </DataTable>
-      {totalNum > 0 ? (
+      {totalNum > 0 && data?.length > 0 ? (
         <div className="table-paginator-container">
           <Paginator
             first={firstIndex}
