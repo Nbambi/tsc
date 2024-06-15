@@ -55,6 +55,7 @@ body {
   --color-grey-5: #454749;
   --color-grey-6: #858585;
   --color-grey-7: #a7a7a7;
+  --border-radius: 10px;
   --header-height: 80px;
 }
 
@@ -105,12 +106,20 @@ body {
   justify-content: center;
 }
 
+.flex-justify-end {
+  justify-content: flex-end;
+}
+
 .mt15 {
   margin-top: 15px;
 }
 
 .mb13 {
   margin-bottom: 13px;
+}
+
+.mb15 {
+  margin-bottom: 15px;
 }
 
 .mb30 {
@@ -122,10 +131,28 @@ body {
 }
 
 .br10 {
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   background-color: var(--color-white);
   padding: 2px;
 }
+
+/** ⬇️ primereact UI */
+.p-sidebar-right .p-sidebar {
+  width: 40rem;
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+}
+
+.p-button.p-button-help,
+.p-button-group.p-button-help > .p-button,
+.p-splitbutton.p-button-help > .p-button,
+.p-fileupload-choose.p-button-help {
+  background: var(--main-color);
+  border-color: var(--main-color);
+  font-size: var(--font-size-md);
+}
+
+/** ⬆️ primereact UI */
 
 .main-container {
   margin-top: var(--header-height);
@@ -135,21 +162,19 @@ body {
   padding: 1rem 5rem 1rem 1rem;
   grid-template-columns: 292px auto;
   column-gap: 3rem;
-
-  .main-right {
-    width: 100%;
-    height: 100%;
-  }
 }
 
-// 亮色卡片
+.main-right {
+  width: 100%;
+  height: 100%;
+}
+
 .main-card-light {
   background-color: var(--color-white);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   padding: 15px 18px;
 }
 
-// 暗色卡片
 .main-card-dark {
   background-color: var(--color-grey-0);
   border-radius: 15px;
@@ -168,11 +193,10 @@ body {
 
   button {
     margin-left: 17px;
-    height: 28px;
+    height: 1.75rem;
   }
 }
 
-// 主标题
 .main-title {
   color: var(--main-color);
   font-size: var(--font-size-lg);
@@ -188,7 +212,6 @@ body {
   }
 }
 
-// 子标题
 .main-subtitle {
   color: var(--main-color);
   font-size: var(--font-size-base);
@@ -198,5 +221,5 @@ body {
 .search-form-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px 28px;
+  gap: 20px 1.75rem;
 }

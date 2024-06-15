@@ -1,8 +1,9 @@
+import React from "react";
 import "./InfoItemCard.scss";
 
 export interface IDataItem {
   lable: string;
-  value: string;
+  value: string | JSX.Element;
 }
 
 export interface IProps {
@@ -12,7 +13,7 @@ export interface IProps {
 const InfoItemCard = ({ data }: IProps) => {
   const getItems = (arr: any[]) => {
     if (Array.isArray(arr) && arr.length > 0) {
-      const eles = arr.map((item: any, index: number) => {
+      const els = arr.map((item: any, index: number) => {
         return (
           <div key={index} className="info-item">
             <div className="info-item-title">{item.label}</div>
@@ -20,7 +21,7 @@ const InfoItemCard = ({ data }: IProps) => {
           </div>
         );
       });
-      return <div className="info-card">{eles}</div>;
+      return <div className="info-card">{els}</div>;
     } else {
       return null;
     }

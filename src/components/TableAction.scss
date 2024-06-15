@@ -3,15 +3,15 @@
   display: flex;
   flex-direction: column;
   min-width: 150px;
+}
 
-  & > div {
-    cursor: pointer;
-    padding: 10px 12px;
-    font-size: var(--font-size-md);
+.action-laypanel .p-overlaypanel-content > div {
+  cursor: pointer;
+  padding: 10px 12px;
+  font-size: var(--font-size-md);
 
-    &:hover {
-      color: var(--nav-active-color);
-      background-color: var(--nav-active-bg-color);
-    }
+  &:hover {
+    color: var(--nav-active-color);
+    background-color: var(--nav-active-bg-color);
   }
 }

@@ -148,30 +148,6 @@ const OrderDetailPage = ({ params }: any) => {
               {activeIndex === 0 && (
                 <div>
                   <h1>Executions List</h1>
-                  {/* TODO 这个到时候通过组件引入进来 */}
-                  {/* <Table dataKey={"orderId"}>
-                    <Column field="orderId" header="Order ID" sortable></Column>
-                    <Column
-                      field="orderQuantity"
-                      header="Order Quantity"
-                    ></Column>
-                    <Column field="side" header="Side"></Column>
-                    <Column field="price" header="Price" sortable></Column>
-                    <Column
-                      field="instrumentName"
-                      header="Instrument Name"
-                    ></Column>
-                    <Column
-                      field="settleDate"
-                      header="Settle Date"
-                      sortable
-                    ></Column>
-                    <Column
-                      field="systemCreationTime"
-                      header="System Creation Time"
-                      sortable
-                    ></Column>
-                  </Table> */}
                 </div>
               )}
               {activeIndex === 1 && <h1>Allocations List</h1>}

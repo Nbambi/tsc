@@ -37,7 +37,7 @@ export default function DelOrderConfirm(props: IProps) {
             label="Cancel"
             severity="secondary"
             outlined
-            style={{ borderRadius: "28px", height: "32px" }}
+            style={{ borderRadius: "1.75rem", height: "32px" }}
             onClick={props.onClose}
           />
           <Button
