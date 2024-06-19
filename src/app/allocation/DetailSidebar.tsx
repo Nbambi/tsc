@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Button } from "primereact/button";
 import { Sidebar } from "primereact/sidebar";
-import InfoItemCard from "@/components/InfoItemCard";
+import InfoItemCard from "@/components/Info/InfoItemCard";
 import { BASIC_INFO_FIELD_MAP } from "./fieldMap";
 
-interface IProps {
+interface IAllocDetailSidebarProps {
   id: string;
   visible: boolean;
   onHide: () => void;
@@ -88,7 +88,7 @@ const res: any = {
   },
 };
 
-export default function AllocDetailSidebar(props: IProps) {
+export default function AllocDetailSidebar(props: IAllocDetailSidebarProps) {
   const [detail, setDetail] = useState<{ [T: string]: any }>({});
   const [showJump, setShowJump] = useState<boolean>(false);
 
@@ -118,7 +118,6 @@ export default function AllocDetailSidebar(props: IProps) {
     const detail: any = {};
     detail["Basic Info"] = basicInfo;
     setDetail(detail);
-    debugger;
   };
 
   useEffect(() => {
@@ -144,31 +143,19 @@ export default function AllocDetailSidebar(props: IProps) {
         showCloseIcon={false}
       >
         {Object.keys(detail).map((label, index) => (
-          <div className="main-card-dark mb15" key={index}>
-            <p className="main-subtitle mb13">{label}</p>
+          <div className="main-card-dark mb-4" key={index}>
+            <p className="main-subtitle mb-3.5">{label}</p>
             <InfoItemCard data={detail[label]} />
           </div>
         ))}
 
         {showJump ? (
           <div
-            className="exec-detail-footer flex flex-justify-end"
-            style={{ gap: "1rem", padding: "1rem 0" }}
+            className="exec-detail-footer operate-footer "
+            style={{ padding: "14px 0px" }}
           >
-            <Button
-              label="Allocation Correction"
-              severity="help"
-              rounded
-              style={{ height: "1.75rem" }}
-              // onClick={}
-            />
-            <Button
-              label="Allocation Cancellation"
-              severity="help"
-              rounded
-              style={{ height: "1.75rem" }}
-              // onClick={}
-            />
+            <Button label="Allocation Correction" severity="help" rounded />
+            <Button label="Allocation Cancellation" severity="help" rounded />
           </div>
         ) : null}
       </Sidebar>

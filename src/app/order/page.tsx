@@ -8,9 +8,10 @@ import { Tag } from "primereact/tag";
 import { InputText } from "primereact/inputtext";
 import { Calendar } from "primereact/calendar";
 import { Dropdown } from "primereact/dropdown";
-import Table from "@/components/Table";
-import TableAction from "@/components/TableAction";
+import Table from "@/components/Table/Table";
+import TableAction from "@/components/Table/TableAction";
 import DelOrderConfirm from "./DelOrderConfirm";
+import MatchDialog from "./MatchDialog";
 
 const initialState = {
   searchParams: {},
@@ -23,7 +24,6 @@ const initialState = {
 };
 
 const reducer = (state: any, { type, payload }: any) => {
-  debugger;
   switch (type) {
     case "onSearchChange":
       return { ...state, payload };
@@ -41,8 +41,9 @@ const reducer = (state: any, { type, payload }: any) => {
 };
 
 export default function OrderPage() {
-  const delId = useRef<string>("");
+  const operatingId = useRef<string>("");
   const [delVisible, setDelVisible] = useState<boolean>(false);
+  const [matchVisible, setMatchVisible] = useState<boolean>(false);
 
   const [state, dispatch] = useReducer(
     reducer,
@@ -64,7 +65,6 @@ export default function OrderPage() {
         };
       }
       console.info("所有请求参数：：", params);
-      debugger;
       const list = [
         { orderId: "001", orderStatus: "new" },
         { orderId: "002", orderStatus: "new" },
@@ -86,7 +86,6 @@ export default function OrderPage() {
   };
 
   const handlePageChange = (params: any) => {
-    debugger;
     dispatch({ type: "onPageChange", payload: params });
   };
 
@@ -107,13 +106,16 @@ export default function OrderPage() {
   };
 
   const handleDelete = (id: string) => {
-    delId.current = id;
+    operatingId.current = id;
     setDelVisible(true);
-    getTableList();
+  };
+
+  const handleMatch = (id: string) => {
+    operatingId.current = id;
+    setMatchVisible(true);
   };
 
   useEffect(() => {
-    debugger;
     getTableList();
   }, [
     state.pageNumber,
@@ -126,13 +128,17 @@ export default function OrderPage() {
   return (
     <>
       <div className="main-card-light">
-        <div className="main-title-contaienr mb30">
+        <div className="main-title-contaienr mb-8">
           <p className="main-title">ORDER LIST</p>
-          <Button label="Create Order" severity="help" rounded />
+          <Button severity="help" rounded>
+            <Link href={`/order/create`} className="button-for-link">
+              Create Order
+            </Link>
+          </Button>
         </div>
 
-        <div className="search-form-container mb30">
-          <InputText value={undefined} placeholder="Please enter order ID" />
+        <div className="search-form-container mb-8">
+          <InputText value={undefined} placeholder="order ID" />
           <Calendar
             value={null}
             placeholder="Settle Date Range"
@@ -191,32 +197,43 @@ export default function OrderPage() {
           ></Column>
           <Column
             header="Action"
+            bodyStyle={{ textAlign: "center" }}
             body={(rowData: any) => {
               return (
                 <TableAction>
-                  <div
-                    className="action-overlay-item"
-                    onClick={() => handleDelete(rowData.orderId)}
-                  >
+                  <div onClick={() => handleDelete(rowData.orderId)}>
                     Delete
                   </div>
-                  <div className="action-overlay-item">Update</div>
-                  <div className="action-overlay-item">Order Matching</div>
-                  <div className="action-overlay-item">
+                  <div>
+                    <Link href={`/order/${rowData.orderId}/update`}>
+                      Update
+                    </Link>
+                  </div>
+                  <div onClick={() => handleMatch(rowData.orderId)}>
+                    Order Matching
+                  </div>
+                  <div>
                     <Link href={`/order/${rowData.orderId}`}>View Detail</Link>
                   </div>
                 </TableAction>
               );
             }}
-            bodyStyle={{ textAlign: "center" }}
           ></Column>
         </Table>
       </div>
 
       <DelOrderConfirm
-        orderId={delId.current}
+        orderId={operatingId.current}
         visible={delVisible}
         onClose={() => setDelVisible(false)}
+        callback={getTableList}
+      />
+
+      <MatchDialog
+        orderId={operatingId.current}
+        visible={matchVisible}
+        onClose={() => setMatchVisible(false)}
+        callback={getTableList}
       />
     </>
   );

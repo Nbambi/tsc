@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "primereact/button";
-import { Column } from "primereact/column";
 import { TabMenu } from "primereact/tabmenu";
-import Table from "@/components/Table";
-import InfoItemCard from "@/components/InfoItemCard";
+import Link from "next/link";
+import InfoItemCard from "@/components/Info/InfoItemCard";
+import ExecutionPage from "@/app/execution/page";
+import AllocationPage from "@/app/allocation/page";
 import DelOrderConfirm from "../DelOrderConfirm";
 
 const OrderDetailPage = ({ params }: any) => {
@@ -127,30 +128,30 @@ const OrderDetailPage = ({ params }: any) => {
               rounded
               onClick={() => setDelVisible(true)}
             />
-            <Button label="Update" severity="help" rounded />
+            <Button severity="help" rounded>
+              <Link href={`/order/${id}/update`} className="button-for-link">
+                Update
+              </Link>
+            </Button>
           </div>
         </div>
 
-        <div className="ml30 mt15">
-          <div className="main-card-dark mb30">
-            <p className="main-subtitle mb13">Order Info</p>
-            <InfoItemCard data={info} />
+        <div className="ml-8 mt-4">
+          <div className="main-card-dark mb-8">
+            <p className="main-subtitle mb-3.5">Order Info</p>
+            <InfoItemCard data={info} grid={6} />
           </div>
 
           <div className="main-card-dark">
-            <p className="main-subtitle mb13">Order Fulfillment Details</p>
+            <p className="main-subtitle mb-3.5">Order Fulfillment Details</p>
             <div className="br10">
               <TabMenu
                 model={menus}
                 activeIndex={activeIndex}
                 onTabChange={(e) => setActiveIndex(e.index)}
               />
-              {activeIndex === 0 && (
-                <div>
-                  <h1>Executions List</h1>
-                </div>
-              )}
-              {activeIndex === 1 && <h1>Allocations List</h1>}
+              {activeIndex === 0 && <ExecutionPage search={false} />}
+              {activeIndex === 1 && <AllocationPage search={false} />}
             </div>
           </div>
         </div>

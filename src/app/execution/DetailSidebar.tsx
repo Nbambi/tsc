@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { Button } from "primereact/button";
 import { Sidebar } from "primereact/sidebar";
-import InfoItemCard from "@/components/InfoItemCard";
+import InfoItemCard from "@/components/Info/InfoItemCard";
 import {
   BASIC_INFO_FIELD_MAP,
   INSTRUMENT_FIELD_MAP,
   MISC_FIELD_MAP,
 } from "./fieldMap";
 
-interface IProps {
+interface IExecDetailSidebarProps {
   id: string;
   visible: boolean;
   onHide: () => void;
@@ -83,7 +83,7 @@ const res: any = {
   },
 };
 
-export default function ExecDetailSidebar(props: IProps) {
+export default function ExecDetailSidebar(props: IExecDetailSidebarProps) {
   const [detail, setDetail] = useState<{ [T: string]: any }>({});
   const [showJump, setShowJump] = useState<boolean>(false);
 
@@ -108,7 +108,7 @@ export default function ExecDetailSidebar(props: IProps) {
                 <span style={{ color: "#883cae" }}>{val}</span>
                 {tm[val] ? (
                   <span
-                    className="flex flex-align-center"
+                    className="flex items-center"
                     style={{
                       color: "#fff",
                       backgroundColor: "#883cae",
@@ -170,7 +170,6 @@ export default function ExecDetailSidebar(props: IProps) {
     detail["Instrument"] = instrumentInfo;
     detail["Misc Fees"] = miscFees;
     setDetail(detail);
-    debugger;
   };
 
   useEffect(() => {
@@ -196,31 +195,19 @@ export default function ExecDetailSidebar(props: IProps) {
         showCloseIcon={false}
       >
         {Object.keys(detail).map((label, index) => (
-          <div className="main-card-dark mb15" key={index}>
-            <p className="main-subtitle mb13">{label}</p>
+          <div className="main-card-dark mb-4" key={index}>
+            <p className="main-subtitle mb-3.5">{label}</p>
             <InfoItemCard data={detail[label]} />
           </div>
         ))}
 
         {showJump ? (
           <div
-            className="exec-detail-footer flex flex-justify-end"
-            style={{ gap: "1rem", padding: "1rem 0" }}
+            className="exec-detail-footer operate-footer"
+            style={{ padding: "14px 0px" }}
           >
-            <Button
-              label="Execution Correction"
-              severity="help"
-              rounded
-              style={{ height: "1.75rem" }}
-              // onClick={}
-            />
-            <Button
-              label="Execution Cancellation"
-              severity="help"
-              rounded
-              style={{ height: "1.75rem" }}
-              // onClick={}
-            />
+            <Button rounded label="Execution Correction" severity="help" />
+            <Button rounded label="Execution Cancellation" severity="help" />
           </div>
         ) : null}
       </Sidebar>

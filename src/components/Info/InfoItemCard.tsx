@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import "./InfoItemCard.scss";
 
@@ -6,11 +8,12 @@ export interface IDataItem {
   value: string | JSX.Element;
 }
 
-export interface IProps {
+export interface IInfoItemCardProps {
   data?: IDataItem[];
+  grid?: number;
 }
 
-const InfoItemCard = ({ data }: IProps) => {
+const InfoItemCard = ({ data, grid = 2 }: IInfoItemCardProps) => {
   const getItems = (arr: any[]) => {
     if (Array.isArray(arr) && arr.length > 0) {
       const els = arr.map((item: any, index: number) => {
@@ -21,7 +24,7 @@ const InfoItemCard = ({ data }: IProps) => {
           </div>
         );
       });
-      return <div className="info-card">{els}</div>;
+      return <div className={`info-card col${grid}`}>{els}</div>;
     } else {
       return null;
     }

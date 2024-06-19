@@ -5,7 +5,7 @@ import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
-import Table from "@/components/Table";
+import Table from "@/components/Table/Table";
 import AllocDetailSidebar from "./DetailSidebar";
 
 const initialState = {
@@ -19,7 +19,6 @@ const initialState = {
 };
 
 const reducer = (state: any, { type, payload }: any) => {
-  debugger;
   switch (type) {
     case "onSearchChange":
       return { ...state, payload };
@@ -36,11 +35,12 @@ const reducer = (state: any, { type, payload }: any) => {
   }
 };
 
-interface IProps {
-  orderId?: string;
-}
+// interface IAllocationPageProps {
+//   search?: boolean;
+//   orderId?: string;
+// }
 
-export default function AllocationPage(props: IProps) {
+export default function AllocationPage({ search = true, orderId }: any) {
   const [detailId, setDetailId] = useState<string>("");
   const [sidebarVisible, setSidebarVisible] = useState<boolean>(false);
 
@@ -64,7 +64,6 @@ export default function AllocationPage(props: IProps) {
         };
       }
       console.info("所有请求参数：：", params);
-      debugger;
       const list = [
         { execId: "001", status: "new" },
         { execId: "002", status: "new" },
@@ -86,7 +85,6 @@ export default function AllocationPage(props: IProps) {
   };
 
   const handlePageChange = (params: any) => {
-    debugger;
     dispatch({ type: "onPageChange", payload: params });
   };
 
@@ -96,7 +94,6 @@ export default function AllocationPage(props: IProps) {
   };
 
   useEffect(() => {
-    debugger;
     getTableList();
   }, [
     state.pageNumber,
@@ -109,13 +106,15 @@ export default function AllocationPage(props: IProps) {
   return (
     <>
       <div className="main-card-light">
-        <div className="main-title-contaienr mb30">
-          <p className="main-title">ALLOCATION LIST</p>
-          <Button label="Create Execution" severity="help" rounded />
-        </div>
+        {search ? (
+          <div className="main-title-contaienr mb-8">
+            <p className="main-title">ALLOCATION LIST</p>
+            <Button label="Create Execution" severity="help" rounded />
+          </div>
+        ) : null}
 
-        {props.orderId ? null : (
-          <div className="search-form-container mb30">
+        {search ? (
+          <div className="search-form-container mb-8">
             <InputText value={undefined} placeholder="Alloc ID" />
             <Dropdown
               value={[]}
@@ -130,7 +129,7 @@ export default function AllocationPage(props: IProps) {
               placeholder="Allocation Status"
             />
           </div>
-        )}
+        ) : null}
 
         <Table
           dataList={state.dataList}
@@ -152,7 +151,6 @@ export default function AllocationPage(props: IProps) {
           onRowClick={(event: any) => {
             const { data } = event;
             handleDetail(data);
-            debugger;
           }}
         >
           <Column field="allocId" header="Alloc ID" sortable></Column>

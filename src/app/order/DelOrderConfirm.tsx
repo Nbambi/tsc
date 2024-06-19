@@ -2,20 +2,24 @@ import Image from "next/image";
 import { Button } from "primereact/button";
 import { ConfirmDialog } from "primereact/confirmdialog";
 
-interface IProps {
+interface IDelOrderConfirmProps {
   orderId: string;
   visible: boolean;
   onClose: () => void;
+  callback?: () => void;
 }
 
-export default function DelOrderConfirm(props: IProps) {
+export default function DelOrderConfirm(props: IDelOrderConfirmProps) {
   const handleDelete = () => {
     // TODO Request
     // - DELETE /api/v1/order/{id}
     if (props.orderId) {
       alert("delete success!!!");
       props.onClose();
-      // TODO 删除还需要重新跳转到 order 页面
+
+      if (props.callback && typeof props.callback === "function") {
+        props.callback();
+      }
     } else {
       alert("delete failed!!! not fount order id");
     }
@@ -26,8 +30,9 @@ export default function DelOrderConfirm(props: IProps) {
       visible={props.visible}
       style={{ width: "600px" }}
       header={() => (
-        <div className="flex" style={{ gap: "8px" }}>
-          <Image src="/warning.png" alt="warning img" width={24} height={24} />
+        <div className="flex gap-2">
+          {/* TODO */}
+          {/* <Image src="/warning.png" alt="warning img" width={24} height={24} /> */}
           <span>Warning</span>
         </div>
       )}
@@ -36,8 +41,8 @@ export default function DelOrderConfirm(props: IProps) {
           <Button
             label="Cancel"
             severity="secondary"
-            outlined
-            style={{ borderRadius: "1.75rem", height: "32px" }}
+            rounded
+            style={{ height: "32px" }}
             onClick={props.onClose}
           />
           <Button
@@ -51,11 +56,9 @@ export default function DelOrderConfirm(props: IProps) {
       )}
       message={() => (
         <div
+          className="flex flex-col gap-4"
           style={{
             color: "#172B4D",
-            display: "flex",
-            flexDirection: "column",
-            gap: "16px",
           }}
         >
           <p style={{ fontSize: "16px", fontWeight: "600" }}>

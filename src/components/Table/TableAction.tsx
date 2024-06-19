@@ -1,3 +1,5 @@
+"use client";
+
 import { useRef } from "react";
 import { OverlayPanel } from "primereact/overlaypanel";
 import "./TableAction.scss";

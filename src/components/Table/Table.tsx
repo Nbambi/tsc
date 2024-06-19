@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Paginator } from "primereact/paginator";
@@ -8,22 +10,23 @@ interface IPaginator {
   pageNumber: number;
 }
 
-interface IProps {
+interface ITableProps {
   dataList: any;
   totalNum: number;
   empty?: string | React.ReactNode;
+  sizeOptions?: number[] | undefined;
   onPageChange: (params: IPaginator) => void;
   [T: string | number]: any;
 }
 
-const Table: React.FC<IProps> = ({
+const Table: React.FC<ITableProps> = ({
   dataList = [],
   totalNum = 0,
   children,
+  sizeOptions = [5, 10, 20, 50, 100],
   onPageChange,
   ...props
 }) => {
-  const sizeOptions = [5, 10, 20, 50, 100];
   const [firstIndex, setFirstIndex] = useState(0); // 当前页第一条数据索引
   const [pageSize, setPageSize] = useState(sizeOptions[0]);
 
@@ -35,9 +38,7 @@ const Table: React.FC<IProps> = ({
 
     console.info("----> pageNumber", pageNumber);
 
-    debugger;
     if (onPageChange && typeof onPageChange === "function") {
-      debugger;
       onPageChange({
         pageSize: rows,
         pageNumber: pageNumber,

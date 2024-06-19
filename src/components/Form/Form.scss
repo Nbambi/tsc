@@ -1,0 +1,21 @@
+.common-form-item {
+  margin-bottom: 26px;
+}
+
+.common-form-label {
+  color: var(--main-color);
+  font-weight: bold;
+  gap: 8px;
+
+  .pi-asterisk {
+    font-size: 8px;
+    font-weight: bold;
+    color: var(--color-red-1);
+  }
+}
+
+.common-form-item.invalid {
+  :nth-child(2) {
+    border-color: var(--color-red-2);
+  }
+}

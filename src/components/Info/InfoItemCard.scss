@@ -5,28 +5,28 @@
   border-radius: var(--border-radius);
   padding: 12px 15px;
 
-  // TODO 先这么写，之后再想具体怎么实现
-  // display: flex;
-  // flex-wrap: wrap;
-  // gap: 12px 22px;
-
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   gap: 22px 12px;
-  // grid-template-columns: repeat(auto-fill, 160px);
+
+  &.col2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  &.col6 {
+    grid-template-columns: repeat(6, 1fr);
+  }
 
   .info-item {
-    // display: inline-flex;
-    // flex-direction: column;
-    // gap: 5px;
-    // min-width: 160px;
-    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
   }
 
   .info-item-title {
     color: var(--color-black);
     font-size: var(--font-size-md);
     font-weight: 400;
+    line-height: 24px;
   }
 
   .info-item-value {
