@@ -5,9 +5,10 @@ import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
 import { Calendar } from "primereact/calendar";
+import { InputNumber } from 'primereact/inputnumber'
 import Link from "next/link";
 
-const FormContent = ({ handleSubmit }: any) => {
+const FormContent = ({ handleSubmit, ...fileProps }: any) => {
   const side_Options = [
     {
       name: "Buy",
@@ -35,7 +36,7 @@ const FormContent = ({ handleSubmit }: any) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <FormItem name="orderID" component={InputText} label="Order ID" />
+      <FormItem name="orderID" component={InputNumber}  label="Order ID"  />
       <FormItem
         name="clientOrderID"
         component={InputText}

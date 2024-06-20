@@ -1,0 +1,46 @@
+nav[data-pc-name="steps"] {
+    ol {
+        display: block !important;
+    }
+    ol>li {
+        height: 50px;
+    }
+}
+.p-steps .p-steps-item:before {
+    border-top: 0 !important;
+}
+
+.cursor-pointer {
+    cursor: pointer!important;
+}
+.z-1 {
+    z-index: 1!important;
+}
+.h-3rem {
+    height: 3rem!important;
+}
+.w-3rem {
+    width: 3rem!important;
+}
+.border-circle {
+    border-radius: 50%!important;
+}
+.border-1 {
+    border-width: 1px!important;
+    border-style: solid;
+}
+.align-items-center {
+    align-items: center!important;
+}
+.justify-content-center {
+    justify-content: center!important;
+}
+.inline-flex {
+    display: inline-flex!important;
+}
+.border-primary {
+    border-color: var(--primary-color)!important;
+}
+.card {
+    width: 220px;
+}

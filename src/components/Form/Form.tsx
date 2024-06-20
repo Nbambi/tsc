@@ -56,16 +56,15 @@ export type FormItemDescribeRequired = CustomRequired<
 //   return <Dropdown options={options} {...props} />;
 // }
 
-export function FormItem(describe: FormItemDescribeRequired) {
-  const { label, component, props, children = [], name, required } = describe;
-
+export function FormItem( { label, component, props, children = [], name, required,}) {
+  // const { label, component, props, children = [], name, required } = describe;
+  debugger;
   const ifValid = (meta: any) => !(meta.touched && meta.error);
   const getFormErrorMessage = (meta: any) => {
     return (
       !ifValid(meta) && <small style={{ color: "#FF0000" }}>{meta.error}</small>
     );
   };
-
   return (
     <Field
       name={name}
@@ -89,8 +88,11 @@ export function FormItem(describe: FormItemDescribeRequired) {
               {
                 ...props,
                 ...input,
-              },
-              children.map((desc) => FormItem(desc))
+                onChange: e => {
+                  props?.onChange(e.value ?? e)
+                  input.onChange(e.value ?? e)
+                }
+              }
             )}
             <span style={{ marginTop: "-10px" }}>
               {getFormErrorMessage(meta)}
